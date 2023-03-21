@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">type</th>
+      <th scope="col">created on</th>
+      <th scope="col">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rec in record_info %}
+      <tr>
+          <td>{{ rec['id'] }}</td>
+          <td>{{ rec['record_type'] }}</td>
+          <td>{{ rec['created_on'].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+          <td>{{ rec['description'] }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

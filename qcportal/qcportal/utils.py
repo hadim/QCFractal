@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from hashlib import sha256
 from typing import Optional, Union, Sequence, List, TypeVar, Any, Dict, Generator
+from datetime import timedelta
 
 import numpy as np
 
@@ -118,3 +119,11 @@ def calculate_limit(max_limit: int, given_limit: Optional[int]) -> int:
 def hash_dict(d: Dict[str, Any]) -> str:
     j = json.dumps(d, ensure_ascii=True, sort_keys=True, cls=_JSONEncoder).encode("utf-8")
     return sha256(j).hexdigest()
+
+def uptime_string(td: timedelta):
+    ts = int(td.total_seconds())
+    days, remainder = divmod(ts, 3600*24)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    return f'{days}d {hours}h {minutes}m {seconds}s'

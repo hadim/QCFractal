@@ -1,0 +1,16 @@
+{%  extends "base.jinja2" %}
+{%  block title %}QCFractal Dashboard Login {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Compute Managers</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Login</h4>
+                  <button class="btn" hx-post="/auth/v1/browser_logout">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

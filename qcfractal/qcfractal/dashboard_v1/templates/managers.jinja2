@@ -1,0 +1,59 @@
+{%  extends "base.jinja2" %}
+{%  block title %}QCFractal Compute Workers{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Compute Managers</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Active Managers</h4>
+
+                {% if active_managers %}
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">cluster</th>
+                        <th scope="col">hostname</th>
+                        <th scope="col">uptime</th>
+                        <th scope="col" colspan="2">active tasks</th>
+                      </tr>
+
+                    </thead>
+                    <tbody>
+                      {% for manager in active_managers %}
+                        <tr>
+                            <td>{{ manager['cluster'] }}</td>
+                            <td>{{ manager['hostname'] }}</td>
+                            <td>{{ manager['uptime'] }}</td>
+                            <td>{{ manager['claimed']-manager['successes']-manager['failures']-manager['rejected'] }}</td>
+                            <td>
+                                <button class="btn btn-primary"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseActiveTasks{{ manager['id'] }}"
+                                        aria-expanded="false"
+                                        aria-controls="collapseActiveTasks{{ manager['id'] }}"
+                                        hx-get="/dashboard/v1/managers/{{ manager['name'] }}/active_tasks"
+                                        hx-target="#activeTasks{{ manager['id'] }}"
+                                        hx-trigger="click once">
+                                    Show
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="collapse" id="collapseActiveTasks{{ manager['id'] }}">
+                          <td colspan="5">
+                            <div class="card card-body" id="activeTasks{{ manager['id'] }}">
+                            </div>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                    (no managers currently active)
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

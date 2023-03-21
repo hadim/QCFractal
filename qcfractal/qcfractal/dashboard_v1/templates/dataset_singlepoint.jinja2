@@ -1,0 +1,20 @@
+{%  extends "base.jinja2" %}
+{%  block title %}QCFractal Compute Workers{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>HTMX Bootstrap Example</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ name }}</h5>
+                <p class="card-text">This is the contents of the API endpoint.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div hx-get="/api/v1/datasets/{{ dataset_type }}/{{ id }}/status" hx-trigger="load" class="card-body">
+                <h5 class="card-title">Status</h5>
+                <p class="card-text">This is the contents of the API endpoint.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
