@@ -159,23 +159,23 @@ class DatabaseConfig(ConfigBase):
     def _check_logfile(cls, v, values):
         return _make_abs_path(v, values["base_folder"], "qcfractal_database.log")
 
-    @root_validator(pre=True)
-    def _root_validator(cls, values):
-        """
-        If full uri is specified, decompose it into the other fields
-        """
+    # @root_validator(pre=True)
+    # def _root_validator(cls, values):
+    #     """
+    #     If full uri is specified, decompose it into the other fields
+    #     """
 
-        full_uri = values.get("full_uri")
-        if full_uri:
-            parsed = urllib.parse.urlparse(full_uri)
-            values["host"] = parsed.hostname
-            values["port"] = parsed.port
-            values["username"] = parsed.username
-            values["password"] = parsed.password
-            values["query"] = "?" + parsed.query
-            values["database_name"] = parsed.path.strip("/")
+    #     full_uri = values.get("full_uri")
+    #     if full_uri:
+    #         parsed = urllib.parse.urlparse(full_uri)
+    #         values["host"] = parsed.hostname
+    #         values["port"] = parsed.port
+    #         values["username"] = parsed.username
+    #         values["password"] = parsed.password
+    #         values["query"] = "?" + parsed.query
+    #         values["database_name"] = parsed.path.strip("/")
 
-        return values
+    #     return values
 
     @property
     def uri(self):
