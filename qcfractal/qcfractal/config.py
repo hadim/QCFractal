@@ -193,13 +193,14 @@ class DatabaseConfig(ConfigBase):
     @property
     def safe_uri(self):
         if self.full_uri is not None:
-            parsed = urllib.parse.urlparse(self.full_uri)
-            if parsed.password is None:
-                return self.full_uri
+            return self.full_uri
+            # parsed = urllib.parse.urlparse(self.full_uri)
+            # if parsed.password is None:
+            #     return self.full_uri
 
-            new_netloc = re.sub(":.*@", ":********@", parsed.netloc)
-            parsed = parsed._replace(netloc=new_netloc)
-            return parsed.geturl()
+            # new_netloc = re.sub(":.*@", ":********@", parsed.netloc)
+            # parsed = parsed._replace(netloc=new_netloc)
+            # return parsed.geturl()
         else:
             host = urllib.parse.quote(self.host, safe="")
             username = self.username if self.username is not None else ""
