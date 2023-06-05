@@ -709,10 +709,13 @@ def main():
             return
 
     logger_map = {AdapterEnum.pool: "", AdapterEnum.dask: "dask_jobqueue.core", AdapterEnum.parsl: "parsl"}
+    adapter_logger = logging.getLogger(logger_map[settings.common.adapter])
     if settings.common.verbose:
-        adapter_logger = logging.getLogger(logger_map[settings.common.adapter])
         adapter_logger.setLevel("DEBUG")
         logger.setLevel("DEBUG")
+    else:
+        adapter_logger.setLevel("INFO")
+        logger.setLevel("INFO")
 
     if settings.manager.log_file_prefix is not None:
         log_handler = logging.FileHandler(settings.manager.log_file_prefix)
