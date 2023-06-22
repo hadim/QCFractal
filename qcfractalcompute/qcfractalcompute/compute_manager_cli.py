@@ -38,7 +38,7 @@ def main():
     manager_config = read_configuration([args.config])
 
     # Adjust the logging level to what was in the config
-    logging.getLogger().setLevel(manager_config.loglevel)
+    logging.getLogger("ComputeManager").setLevel(manager_config.loglevel)
 
     if manager_config.logfile:
         print("*" * 10)
@@ -46,7 +46,7 @@ def main():
         print("*" * 10)
         log_handler = logging.FileHandler(manager_config.logfile)
         log_handler.setFormatter(formatter)
-        logging.getLogger().handlers = [log_handler]
+        logging.getLogger("ComputeManager").handlers = [log_handler]
 
     manager = ComputeManager(manager_config)
 
